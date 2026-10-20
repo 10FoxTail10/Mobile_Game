@@ -37,12 +37,26 @@ public class PlayerCatch : MonoBehaviour
             transform.position = safeRoomSpawn.position;
             _controller.enabled = true;
             _catchCount++;
+        }
+        ConsumeAttempt();
+    }
 
-            if (_catchCount >= 3)
-            {
-                _isGameOver = true;
-                gameOverPanel.SetActive(true);
-            }
+    public void ConsumeAttempt()
+    {
+        if (_isGameOver)
+        {
+            return;
+        }
+
+        _catchCount++;
+
+        Debug.Log($"Потеряна попытка. Использовано: {_catchCount} из 3.");
+
+        if (_catchCount >= 3)
+        {
+            _isGameOver = true;
+            gameOverPanel.SetActive(true);
         }
     }
+
 }

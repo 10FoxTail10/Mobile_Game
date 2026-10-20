@@ -1,19 +1,48 @@
+
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private Image icon;
+    [SerializeField] private TMP_Text itemNameText;
 
-    public void SetItem(Sprite itemIcon)
+    public void SetItem(ItemData item)
     {
-        icon.sprite = itemIcon;
-        icon.enabled = true;
+        if (item == null)
+        {
+            Clear();
+            return;
+        }
+
+        if (icon != null)
+        {
+            icon.sprite = item.icon;
+            icon.enabled = item.icon != null;
+        }
+
+        if (itemNameText != null)
+        {
+            itemNameText.text = item.itemName;
+        }
+
+        gameObject.SetActive(true);
     }
 
     public void Clear()
     {
-        icon.sprite = null;
-        icon.enabled = false;
+        if (icon != null)
+        {
+            icon.sprite = null;
+            icon.enabled = false;
+        }
+
+        if (itemNameText != null)
+        {
+            itemNameText.text = "";
+        }
+
+        gameObject.SetActive(false);
     }
 }
